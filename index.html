@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/public/css/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="ledger-head">
+        <p class="ledger-head__kicker">KNUST · Registry</p>
+        <h1>Student Management System</h1>
+      <p class="ledger-head__sub">Add, review, and update student records in the register.</p>
+      </header>
+
+      <form id="document" class="entry-form" novalidate>
+        <div class="entry-form__row">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="e.g. Ama" required />
+          </div>
+
+          <div class="field">
+            <label for="middleName">Middle name <span class="field__optional">(if any)</span></label>
+            <input type="text" id="middleName" name="middleName" placeholder="e.g. Nyarko" />
+          </div>
+
+          <div class="field">
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="surname" placeholder="e.g. Serwaa" required />
+          </div>
+        </div>
+
+        <div class="entry-form__row">
+          <div class="field">
+            <label for="studentId">Student ID</label>
+            <input
+              type="text"
+              id="studentId"
+              name="studentId"
+              class="mono"
+              placeholder="e.g. 20345678"
+              inputmode="numeric"
+              autocomplete="off"
+              required
+            />
+            <p class="field__hint">Digits only.</p>
+          </div>
+
+          <div class="field field--narrow">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="" disabled selected>Select</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="entry-form__row">
+          <div class="field">
+            <label for="dateOfBirth">Date of birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+          </div>
+
+          <div class="field field--narrow">
+            <label for="age">Age</label>
+            <input type="text" id="age" name="age" class="mono" readonly tabindex="-1" placeholder="—" />
+          </div>
+        </div>
+
+        <div class="entry-form__row">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="name@st.knust.edu.gh" required />
+          </div>
+
+          <div class="field">
+            <label for="phoneNumber">Phone number</label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="tel"
+              inputmode="numeric"
+              maxlength="10"
+              pattern="\d{1,10}"
+              title="Up to 10 digits"
+              placeholder="e.g. 0244123456"
+            />
+          </div>
+        </div>
+
+        <div class="entry-form__row">
+          <div class="field">
+            <label for="course">Programme</label>
+            <input
+              type="text"
+              id="course"
+              name="course"
+              list="programmeList"
+              placeholder="Start typing a programme…"
+              autocomplete="off"
+              required
+            />
+            <datalist id="programmeList"></datalist>
+            <p class="field__hint" id="programmeHint">Sets how high the level field can go.</p>
+          </div>
+
+          <div class="field field--narrow">
+            <label for="level">Level</label>
+            <select id="level" name="level" required>
+              <option value="" disabled selected>—</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="entry-form__actions">
+          <input type="submit" value="Add to register" />
+        </div>
+      </form>
+
+      <section class="register" aria-label="Student register">
+        <p id="registerStatus" class="register__status" role="status" aria-live="polite">Loading student records…</p>
+        <div id="table" class="ledger">
+          <div class="ledger__row ledger__row--head">
+            <span>Student Name</span>
+            <span>Student ID</span>
+            <span>Age</span>
+            <span>Gender</span>
+            <span>Date Of Birth</span>
+            <span>Email</span>
+            <span>Phone Number</span>
+            <span>Programme</span>
+            <span>Level</span>
+            <span>Actions</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Load Supabase SDK first, then script.js once -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/public/js/script.js"></script>
+  </body>
+</html>
