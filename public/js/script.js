@@ -328,6 +328,20 @@ document.body.onload = async () => {
     phoneNumber.value = phoneNumber.value.replace(/\D/g, "").slice(0, 10);
   });
 
+  const nameFields = [firstName, middleName, surname];
+  const namePattern = /^[\p{L}\p{M}\s'’\-]+$/u;
+  nameFields.forEach((field) => {
+    field.addEventListener("input", () => {
+      field.value = field.value.replace(/[^\p{L}\p{M}\s'’\-]/gu, "");
+      const value = field.value.trim();
+      field.setCustomValidity(
+        value && !namePattern.test(value)
+          ? "Use letters, spaces, apostrophes, or hyphens only."
+          : ""
+      );
+    });
+  });
+
   cancelButton.addEventListener("click", resetForm);
 
   form.addEventListener("submit", async (event) => {
@@ -340,6 +354,15 @@ document.body.onload = async () => {
     studentId.setCustomValidity(
       duplicateId ? "This student ID is already registered." : ""
     );
+
+    nameFields.forEach((field) => {
+      const value = field.value.trim();
+      field.setCustomValidity(
+        value && !namePattern.test(value)
+          ? "Use letters, spaces, apostrophes, or hyphens only."
+          : ""
+      );
+    });
 
     const max = maxLevelFor(course.value);
     if (level.value && Number(level.value) > max) {
