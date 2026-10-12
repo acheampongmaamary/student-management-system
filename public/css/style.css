@@ -12,6 +12,47 @@
   box-sizing: border-box;
 }
 
+[hidden] { display: none !important; }
+
+.auth-gate {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: min(100%, 420px);
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.auth-card h2 { margin: 0 0 8px; }
+.auth-card > p:not(.ledger-head__kicker) { color: #666; }
+.auth-card form { display: grid; gap: 18px; }
+.auth-card button, .session-bar button {
+  padding: 10px 16px;
+  color: #fff;
+  background: #2f6f62;
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.auth-card button:disabled { opacity: .6; cursor: wait; }
+.session-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 12px max(20px, calc((100vw - 900px) / 2));
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
 body {
   margin: 0;
   background-color: #f5f5f5;
@@ -302,6 +343,10 @@ body {
   padding: 12px 10px;
   border-bottom: 1px solid #ddd;
   font-size: 14px;
+}
+
+.ledger--student-view .ledger__row {
+  grid-template-columns: 1.3fr 1fr 0.6fr 0.8fr 1fr 1.4fr 1fr 1.3fr 0.7fr;
 }
 
 

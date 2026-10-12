@@ -11,14 +11,29 @@
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/public/css/style.css" />
+    <link rel="stylesheet" href="./public/css/style.css" />
   </head>
   <body>
+    <main id="authGate" class="auth-gate">
+      <section class="auth-card" aria-labelledby="loginTitle">
+        <p class="ledger-head__kicker">KNUST · Registry</p>
+        <h2 id="loginTitle">Sign in</h2>
+        <p>Use an account created for this system.</p>
+        <form id="loginForm" method="post" onsubmit="event.preventDefault()">
+          <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" autocomplete="username" required /></div>
+          <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" required /></div>
+          <button id="loginButton" type="submit">Sign in</button>
+          <p id="loginStatus" class="register__status" role="status" aria-live="polite">Loading sign-in…</p>
+        </form>
+      </section>
+    </main>
+    <div id="appShell" hidden>
+      <div class="session-bar"><span id="signedInAs"></span><button id="logoutButton" type="button">Sign out</button></div>
     <div class="page">
       <header class="ledger-head">
         <p class="ledger-head__kicker">KNUST · Registry</p>
         <h1>Student Management System</h1>
-      <p class="ledger-head__sub">Add, review, and update student records in the register.</p>
+      <p id="dashboardSubtitle" class="ledger-head__sub">Your student information will appear here.</p>
       </header>
 
       <form id="document" class="entry-form" novalidate>
@@ -147,14 +162,15 @@
             <span>Phone Number</span>
             <span>Programme</span>
             <span>Level</span>
-            <span>Actions</span>
+            <span id="actionsHeading">Actions</span>
           </div>
         </div>
       </section>
     </div>
 
+    </div>
     <!-- Load Supabase SDK first, then script.js once -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="/public/js/script.js"></script>
+    <script src="./public/js/script.js?v=login-fix-3" onerror="document.getElementById('loginStatus').textContent='Could not load the sign-in script. Open this page through Live Server from the project folder.'"></script>
   </body>
 </html>

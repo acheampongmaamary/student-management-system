@@ -1,15 +1,21 @@
 const PROJECT_REF = "lzpummcsjxlcsiqkqvwa";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6cHVtbWNzanhsY3NpcWtxdndhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1ODkzODMsImV4cCI6MjEwNjE2NTM4M30.NpyLo7D-BE1VQj-H_TgEbnNjtPxnVsJxMSkrsKoLXWA";
 const tableName = "students";
+const supabaseClient = window.supabase?.createClient(`https://${PROJECT_REF}.supabase.co`, SUPABASE_ANON_KEY) ?? null;
 
 const BASE_URL = `https://${PROJECT_REF}.supabase.co/rest/v1/${tableName}`;
 
-const headers = {
+async function getHeaders() {
+  const { data } = await supabaseClient.auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) throw new Error("Please sign in to access student records.");
+  return {
   apikey: SUPABASE_ANON_KEY,
-  Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+  Authorization: `Bearer ${token}`,
   "Content-Type": "application/json",
   Prefer: "return=representation",
-};
+  };
+}
 
 async function getErrorMessage(response) {
   const text = await response.text();
@@ -24,6 +30,7 @@ async function getErrorMessage(response) {
 }
 
 async function fetchSupabaseData() {
+  const headers = await getHeaders();
   const response = await fetch(`${BASE_URL}?select=*&order=student_id.asc`, {
     method: "GET",
     headers,
@@ -33,6 +40,7 @@ async function fetchSupabaseData() {
 }
 
 async function insertStudentData(studentPayload) {
+  const headers = await getHeaders();
   const response = await fetch(BASE_URL, {
     method: "POST",
     headers,
@@ -46,6 +54,7 @@ async function insertStudentData(studentPayload) {
 }
 
 async function updateStudentData(originalId, studentPayload) {
+  const headers = await getHeaders();
   const query = new URLSearchParams({
     student_id: `eq.${originalId}`,
   });
@@ -64,6 +73,7 @@ async function updateStudentData(originalId, studentPayload) {
 }
 
 async function deleteStudentData(studentId) {
+  const headers = await getHeaders();
   const query = new URLSearchParams({
     student_id: `eq.${studentId}`,
   });
@@ -76,7 +86,7 @@ async function deleteStudentData(studentId) {
   if (!response.ok) throw new Error(await getErrorMessage(response));
 }
 
-document.body.onload = async () => {
+async function initializeManagementApp(role) {
   const form = document.getElementById("document");
   const table = document.getElementById("table");
   const registerStatus = document.getElementById("registerStatus");
@@ -93,6 +103,13 @@ document.body.onload = async () => {
   const course = document.getElementById("course");
   const programmeList = document.getElementById("programmeList");
   const level = document.getElementById("level");
+  const isAdmin = role === "admin";
+  form.hidden = !isAdmin;
+  table.classList.toggle("ledger--student-view", !isAdmin);
+  document.getElementById("actionsHeading").hidden = !isAdmin;
+  document.getElementById("dashboardSubtitle").textContent = isAdmin
+    ? "Manage student records in the register."
+    : "Your student record is shown below. Contact the registry if anything needs correcting.";
 
   const STUDENT_ID_LENGTH = 8;
   const PROGRAMME_DURATIONS = {
@@ -200,6 +217,7 @@ document.body.onload = async () => {
       row.appendChild(span);
     });
 
+    if (isAdmin) {
     const actions = document.createElement("span");
     actions.className = "ledger__actions";
 
@@ -256,6 +274,7 @@ document.body.onload = async () => {
 
     actions.append(editButton, deleteButton);
     row.appendChild(actions);
+    }
     table.appendChild(row);
 
     studentRows.set(String(student.student_id), row);
@@ -424,4 +443,91 @@ document.body.onload = async () => {
       submitButton.disabled = false;
     }
   });
-};
+}
+
+async function startAuth() {
+  const authGate = document.getElementById("authGate");
+  const appShell = document.getElementById("appShell");
+  const loginForm = document.getElementById("loginForm");
+  const loginStatus = document.getElementById("loginStatus");
+  const loginButton = document.getElementById("loginButton");
+  const logoutButton = document.getElementById("logoutButton");
+  let appInitialized = false;
+
+  if (!supabaseClient) {
+    loginStatus.textContent = "The sign-in service did not load. Check your internet connection and reload this page.";
+    return;
+  }
+  loginStatus.textContent = "Ready. Sign in with your account.";
+
+  async function showSession(session) {
+    if (!session) {
+      authGate.hidden = false;
+      appShell.hidden = true;
+      appInitialized = false;
+      loginForm.reset();
+      return;
+    }
+    loginStatus.textContent = "Loading your account…";
+    const { data: profile, error } = await supabaseClient
+      .from("profiles")
+      .select("username, role")
+      .eq("id", session.user.id)
+      .single();
+
+    if (error || !profile || !["student", "admin"].includes(profile.role)) {
+      appShell.hidden = true;
+      authGate.hidden = false;
+      loginStatus.textContent = error?.message || "Your account needs a valid student or admin profile.";
+      return;
+    }
+
+    authGate.hidden = true;
+    appShell.hidden = false;
+    document.getElementById("signedInAs").textContent = `${profile.username} · ${profile.role === "admin" ? "Admin" : "Student"}`;
+    if (!appInitialized) {
+      appInitialized = true;
+      await initializeManagementApp(profile.role);
+    }
+  }
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    loginStatus.textContent = "Signing in…";
+    loginButton.disabled = true;
+    try {
+      const formData = new FormData(loginForm);
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: formData.get("email").trim(),
+        password: formData.get("password"),
+      });
+      if (error) {
+        loginStatus.textContent = error.message;
+        return;
+      }
+      loginStatus.textContent = "";
+      await showSession(data.session);
+    } catch (error) {
+      loginStatus.textContent = `Sign-in failed: ${error.message}`;
+    } finally {
+      loginButton.disabled = false;
+    }
+  });
+
+  logoutButton.addEventListener("click", async () => {
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) loginStatus.textContent = error.message;
+  });
+
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  await showSession(session);
+  supabaseClient.auth.onAuthStateChange((_event, nextSession) => {
+    showSession(nextSession);
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startAuth, { once: true });
+} else {
+  startAuth();
+}
