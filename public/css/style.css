@@ -183,8 +183,10 @@ body {
 }
 
 
-/* Read-only fields */
-.field input[readonly] {
+/* Read-only and locked fields */
+.field input[readonly],
+.field input:disabled,
+.field select:disabled {
   background-color: #f0f0f0;
   color: #666;
 }
@@ -337,7 +339,7 @@ body {
     1fr
     1.3fr
     0.7fr
-    1.3fr;
+    1.9fr;
 
   gap: 10px;
   padding: 12px 10px;
@@ -345,8 +347,245 @@ body {
   font-size: 14px;
 }
 
-.ledger--student-view .ledger__row {
-  grid-template-columns: 1.3fr 1fr 0.6fr 0.8fr 1fr 1.4fr 1fr 1.3fr 0.7fr;
+.users {
+  margin-top: 40px;
+}
+
+/* Shared card for feature panels */
+.panel {
+  margin: 0 0 30px;
+  padding: 22px 25px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.panel h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.panel h3 {
+  margin: 20px 0 8px;
+  font-size: 16px;
+}
+
+.panel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Academic results */
+.results {
+  margin-top: 30px;
+}
+
+.results-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.results-summary__item {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  padding: 10px 14px;
+  background-color: #f1f7f5;
+  border: 1px solid #cfe3dd;
+  border-radius: 4px;
+}
+
+.results-summary__label {
+  color: #666;
+  font-size: 12px;
+}
+
+.results-summary__item strong {
+  color: #234f45;
+  font-size: 18px;
+}
+
+.ledger--results {
+  min-width: 600px;
+}
+
+.ledger--results .ledger__row {
+  grid-template-columns: 0.9fr 2.4fr 0.6fr 0.7fr 0.6fr 0.8fr;
+  align-items: center;
+}
+
+.result-form {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.result-form__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Campus Guardian: student */
+.sos-button {
+  display: block;
+  width: 100%;
+  margin: 14px 0 6px;
+  padding: 18px;
+  color: white;
+  background-color: #b3261e;
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.sos-button:hover {
+  background-color: #8c1d17;
+}
+
+.sos-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.safewalk__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.safewalk__form .field:not(.field--narrow) {
+  flex: 1;
+  min-width: 200px;
+}
+
+.safewalk__form button {
+  padding: 9px 14px;
+  font-size: 14px;
+}
+
+.safewalk__active {
+  padding: 14px 16px;
+  background-color: #f1f7f5;
+  border: 1px solid #cfe3dd;
+  border-radius: 6px;
+}
+
+.safewalk__active[data-state="overdue"] {
+  background-color: #fdecea;
+  border-color: #e6a39e;
+}
+
+.safewalk__countdown {
+  margin: 0;
+  font-family: monospace;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.safewalk__checkin {
+  padding: 12px 18px;
+  color: white;
+  background-color: #2f6f62;
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register__status[data-state="alert"] {
+  color: #234f45;
+  font-weight: bold;
+}
+
+/* Campus Guardian: dispatch */
+.dispatch__list {
+  display: grid;
+  gap: 12px;
+}
+
+.alert-card {
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-left: 6px solid #bbb;
+  border-radius: 4px;
+}
+
+.alert-card p {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.alert-card--critical {
+  background-color: #fdecea;
+  border-left-color: #b3261e;
+}
+
+.alert-card--acknowledged {
+  border-left-color: #c98a00;
+}
+
+.alert-card__type {
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+
+.alert-card--critical .alert-card__type {
+  color: #b3261e;
+}
+
+.alert-card__student {
+  font-weight: bold;
+}
+
+.alert-card__warning {
+  color: #b3261e;
+}
+
+.alert-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.users h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.ledger--users {
+  min-width: 700px;
+}
+
+.ledger--users .ledger__row {
+  grid-template-columns: 1fr 1.6fr 1fr 1fr 0.6fr;
+  align-items: center;
+}
+
+.ledger--users input,
+.ledger--users select {
+  width: 100%;
+  padding: 5px 6px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.ledger--users input:disabled,
+.ledger--users select:disabled {
+  background-color: #f0f0f0;
+  color: #666;
 }
 
 
@@ -443,7 +682,8 @@ body {
     On small screens, form fields
     appear one below another.
   */
-  .entry-form__row {
+  .entry-form__row,
+  .result-form__grid {
     grid-template-columns: 1fr;
     gap: 15px;
   }

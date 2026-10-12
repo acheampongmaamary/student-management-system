@@ -19,7 +19,7 @@
         <p class="ledger-head__kicker">KNUST · Registry</p>
         <h2 id="loginTitle">Sign in</h2>
         <p>Use an account created for this system.</p>
-        <form id="loginForm" method="post" onsubmit="event.preventDefault()">
+        <form id="loginForm" method="post">
           <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" autocomplete="username" required /></div>
           <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" required /></div>
           <button id="loginButton" type="submit">Sign in</button>
@@ -35,6 +35,47 @@
         <h1>Student Management System</h1>
       <p id="dashboardSubtitle" class="ledger-head__sub">Your student information will appear here.</p>
       </header>
+
+      <section id="dispatchPanel" class="panel dispatch" aria-labelledby="dispatchTitle" hidden>
+        <h2 id="dispatchTitle">Campus Guardian · Security dispatch</h2>
+        <p id="dispatchStatus" class="register__status" role="status" aria-live="assertive"></p>
+        <div id="dispatchList" class="dispatch__list"></div>
+      </section>
+
+      <section id="safetyPanel" class="panel safety" aria-labelledby="safetyTitle" hidden>
+        <h2 id="safetyTitle">Campus Guardian</h2>
+        <p class="field__hint">In immediate danger? Send an alert with your location to campus security. Your location is only shared when you send an alert or start a SafeWalk.</p>
+        <button id="panicButton" class="sos-button" type="button">SOS · Send emergency alert</button>
+
+        <div class="safewalk">
+          <h3>SafeWalk</h3>
+          <p class="field__hint">Walking alone at night? Start a timer. If you don't check in before it runs out, security is alerted with your last location.</p>
+          <form id="safewalkForm" class="safewalk__form">
+            <div class="field field--narrow">
+              <label for="safewalkMinutes">Minutes</label>
+              <select id="safewalkMinutes" required>
+                <option value="10">10</option>
+                <option value="15" selected>15</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+                <option value="60">60</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="safewalkDestination">Going to <span class="field__optional">(optional)</span></label>
+              <input id="safewalkDestination" type="text" maxlength="200" placeholder="e.g. Hostel in Ayeduase" />
+            </div>
+            <button type="submit" class="ledger__button">Start SafeWalk</button>
+          </form>
+          <div id="safewalkActive" class="safewalk__active" hidden>
+            <p id="safewalkCountdown" class="safewalk__countdown mono"></p>
+            <p id="safewalkDetails"></p>
+            <button id="safewalkCheckIn" type="button" class="safewalk__checkin">I'm safe · Check in</button>
+          </div>
+        </div>
+        <p id="safetyStatus" class="register__status" role="status" aria-live="assertive"></p>
+      </section>
 
       <form id="document" class="entry-form" novalidate>
         <div class="entry-form__row">
@@ -149,7 +190,7 @@
         </div>
       </form>
 
-      <section class="register" aria-label="Student register">
+      <section id="registerSection" class="register" aria-label="Student register">
         <p id="registerStatus" class="register__status" role="status" aria-live="polite">Loading student records…</p>
         <div id="table" class="ledger">
           <div class="ledger__row ledger__row--head">
@@ -166,11 +207,75 @@
           </div>
         </div>
       </section>
+
+      <section id="resultsPanel" class="panel results" aria-labelledby="resultsTitle" hidden>
+        <div class="panel__head">
+          <h2 id="resultsTitle">Academic results</h2>
+          <button id="resultsClose" type="button" class="ledger__button">Close</button>
+        </div>
+        <div id="resultsSummary" class="results-summary"></div>
+        <p id="resultsStatus" class="register__status" role="status" aria-live="polite"></p>
+        <div id="resultsBody"></div>
+
+        <form id="resultForm" class="result-form">
+          <h3>Add a result</h3>
+          <div class="result-form__grid">
+            <div class="field">
+              <label for="resultCourseCode">Course code</label>
+              <input id="resultCourseCode" class="mono" list="courseList" required minlength="3" maxlength="15" placeholder="e.g. CSM 151" autocomplete="off" />
+              <datalist id="courseList"></datalist>
+            </div>
+            <div class="field">
+              <label for="resultCourseTitle">Course title</label>
+              <input id="resultCourseTitle" required minlength="2" maxlength="200" placeholder="e.g. Introduction to Programming" />
+            </div>
+            <div class="field">
+              <label for="resultCreditHours">Credits</label>
+              <input id="resultCreditHours" type="number" required min="1" max="6" step="1" placeholder="1–6" />
+            </div>
+            <div class="field">
+              <label for="resultAcademicYear">Academic year</label>
+              <input id="resultAcademicYear" class="mono" required pattern="\d{4}/\d{4}" placeholder="2025/2026" title="Format: 2025/2026" />
+            </div>
+            <div class="field">
+              <label for="resultSemester">Semester</label>
+              <select id="resultSemester" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="resultMark">Mark (0–100)</label>
+              <input id="resultMark" type="number" required min="0" max="100" step="0.01" placeholder="e.g. 68" />
+            </div>
+          </div>
+          <div class="entry-form__actions">
+            <input type="submit" value="Add result" />
+          </div>
+        </form>
+      </section>
+
+      <section id="usersPanel" class="register users" aria-labelledby="usersTitle" hidden>
+        <h2 id="usersTitle">User accounts</h2>
+        <p class="field__hint">Set each account's role. For student accounts, enter the student ID of the record they may view and edit.</p>
+        <p id="usersStatus" class="register__status" role="status" aria-live="polite"></p>
+        <div id="usersTable" class="ledger ledger--users">
+          <div class="ledger__row ledger__row--head">
+            <span>Username</span>
+            <span>Email</span>
+            <span>Role</span>
+            <span>Linked student ID</span>
+            <span>Actions</span>
+          </div>
+        </div>
+      </section>
     </div>
 
     </div>
-    <!-- Load Supabase SDK first, then script.js once -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./public/js/script.js?v=login-fix-3" onerror="document.getElementById('loginStatus').textContent='Could not load the sign-in script. Open this page through Live Server from the project folder.'"></script>
+    <!-- Load Supabase SDK first, then the feature modules, then script.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+    <script src="./public/js/results.js"></script>
+    <script src="./public/js/safety.js"></script>
+    <script src="./public/js/script.js" onerror="document.getElementById('loginStatus').textContent='Could not load the sign-in script. Start the server with npm start and open http://localhost:8000.'"></script>
   </body>
 </html>

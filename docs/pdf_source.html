@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KNUST SMS - New Features & Thursday Presentation Plan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+    @page {
+      size: A4;
+      margin: 12mm 14mm 14mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #2d3748;
+      background: #ffffff;
+      line-height: 1.5;
+      font-size: 9.5pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      color: #15372f;
+      font-family: 'Source Serif 4', Georgia, serif;
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 24pt;
+      line-height: 1.2;
+      margin-bottom: 6pt;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      border-bottom: 1.5pt solid #1f4e43;
+      padding-bottom: 3pt;
+      margin-top: 14pt;
+      margin-bottom: 6pt;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 11pt;
+      margin-top: 8pt;
+      margin-bottom: 3pt;
+      color: #1f4e43;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 6pt;
+    }
+
+    .cover {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 88vh;
+      padding: 40pt 20pt;
+      border-left: 6pt solid #c29b38;
+      padding-left: 30pt;
+    }
+
+    .cover-kicker {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #c29b38;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12pt;
+    }
+
+    .cover-title {
+      font-size: 26pt;
+      color: #15372f;
+      margin-bottom: 10pt;
+      line-height: 1.15;
+    }
+
+    .cover-subtitle {
+      font-size: 12pt;
+      color: #4a5568;
+      margin-bottom: 24pt;
+      max-width: 480pt;
+      line-height: 1.4;
+    }
+
+    .cover-meta {
+      margin-top: 30pt;
+      border-top: 1pt solid #e2e8f0;
+      padding-top: 15pt;
+      font-size: 9.5pt;
+      color: #718096;
+      line-height: 1.6;
+    }
+
+    .cover-meta strong {
+      color: #2d3748;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .callout {
+      background-color: #f7fafc;
+      border-left: 3.5pt solid #1f4e43;
+      padding: 8pt 12pt;
+      border-radius: 0 4pt 4pt 0;
+      margin: 8pt 0 10pt;
+      font-size: 9pt;
+    }
+
+    .callout--gold {
+      background-color: #fefcf3;
+      border-left-color: #c29b38;
+    }
+
+    .callout--danger {
+      background-color: #fff5f5;
+      border-left-color: #c53030;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1pt solid #e2e8f0;
+      border-radius: 5pt;
+      padding: 9pt 11pt;
+      margin-bottom: 9pt;
+      box-shadow: 0 1pt 2pt rgba(0,0,0,0.02);
+      page-break-inside: avoid;
+    }
+
+    .feature-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 6pt;
+      margin-top: 0;
+      margin-bottom: 3pt;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 7pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 1.5pt 5pt;
+      border-radius: 3pt;
+      background: #e8f3f0;
+      color: #1f4e43;
+      vertical-align: middle;
+    }
+
+    .badge--gold {
+      background: #fef8e7;
+      color: #8c6817;
+    }
+
+    .badge--red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 6pt 0 10pt;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      padding: 5.5pt 7.5pt;
+      text-align: left;
+      border-bottom: 1pt solid #e2e8f0;
+    }
+
+    th {
+      background-color: #edf2f7;
+      color: #15372f;
+      font-weight: 700;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    .qa-box {
+      background: #ffffff;
+      border: 1pt solid #e2e8f0;
+      border-radius: 5pt;
+      padding: 7pt 10pt;
+      margin-bottom: 7pt;
+      page-break-inside: avoid;
+    }
+
+    .qa-question {
+      font-weight: 700;
+      color: #15372f;
+      font-size: 9.5pt;
+      margin-bottom: 2pt;
+    }
+
+    .qa-answer {
+      color: #2d3748;
+      font-size: 9pt;
+      margin-bottom: 0;
+    }
+
+    .demo-step {
+      display: flex;
+      gap: 8pt;
+      margin-bottom: 7pt;
+      page-break-inside: avoid;
+    }
+
+    .step-num {
+      width: 19pt;
+      height: 19pt;
+      background: #1f4e43;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 9pt;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content strong {
+      color: #15372f;
+      font-size: 9.5pt;
+    }
+
+    .step-content p {
+      margin-bottom: 2pt;
+      font-size: 9pt;
+    }
+
+    .image-container {
+      margin: 8pt 0 12pt;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+
+    .image-container img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 5pt;
+      border: 1pt solid #cbd5e0;
+      box-shadow: 0 2pt 4pt rgba(0,0,0,0.06);
+    }
+
+    .image-caption {
+      font-size: 7.5pt;
+      color: #718096;
+      margin-top: 2pt;
+      font-style: italic;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+      margin: 6pt 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding-left: 18pt;
+      margin-bottom: 5pt;
+      font-size: 9pt;
+    }
+
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 11pt;
+      color: #1f4e43;
+    }
+
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8pt;
+      background: #f1f5f9;
+      padding: 1pt 3pt;
+      border-radius: 3pt;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1: COVER ==================== -->
+  <div class="cover">
+    <div class="cover-kicker">KNUST Registry · Intern Project Guide</div>
+    <div class="cover-title">The Complete New Features & Thursday Presentation Plan</div>
+    <div class="cover-subtitle">
+      A simple, plain-English handbook for <strong>Mary Maame Acheampong</strong> to understand the new features, answer Judge Davida’s questions with confidence, and deliver a standout final presentation.
+    </div>
+
+    <div class="callout callout--gold" style="max-width: 440pt;">
+      <strong>💡 Key Principle to Remember:</strong><br />
+      The judges did not criticize you because you failed. They wanted to see if your system could solve <em>real-world KNUST campus problems</em> like off-campus safety, results, and privacy. You have now built those features. Go and show them with pride!
+    </div>
+
+    <div class="cover-meta">
+      <strong>Author:</strong> Mary Maame Acheampong (Registry Intern)<br />
+      <strong>Final Presentation Date:</strong> Thursday Evaluation Session<br />
+      <strong>Project:</strong> KNUST Student Management System (SMS) & CampusGuard OS<br />
+      <strong>Local App URL:</strong> <span class="mono">http://localhost:3000</span>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2: WHAT HAPPENED & FEATURES 1 & 2 ==================== -->
+  <h2>1. What Happened on Friday & The Thursday Game Plan</h2>
+  
+  <p>
+    During your presentation last Friday, the judges (particularly <strong>Judge Davida</strong>) were looking for enterprise-level thinking. A simple form that adds names and student IDs looks like a basic school exercise. They challenged you with 5 specific real-world needs:
+  </p>
+
+  <div class="callout callout--danger">
+    <strong>What Judge Davida Said:</strong><br />
+    <em>"She should add GIS to it where it can track students when they’re off campus, logins, add something that would know when a student is being murdered, link students to their results, and other privacy settings."</em>
+  </div>
+
+  <p>
+    Instead of panicking, we turned this feedback into your biggest advantage. We added <strong>5 high-impact modules</strong> into your project and created an intuitive 5-tab interface. When you present on Thursday, you can say:
+  </p>
+
+  <div class="callout">
+    <em>"Last Friday, the panel challenged me to take this project from a basic registry ledger to a full campus management ecosystem. Over the weekend, I expanded our system to solve off-campus hostel safety, emergency distress detection, CWA transcript results, and data privacy. Let me show you how it works."</em>
+  </div>
+
+  <h2>2. Features 1 & 2: Off-Campus Safety & Threat Detection</h2>
+
+  <div class="feature-card">
+    <h3>
+      <span>🗺️ Feature 1: GIS Off-Campus Student Locator</span>
+      <span class="badge">Spatial Intelligence</span>
+    </h3>
+    <p>
+      <strong>What it means in plain English:</strong> A live interactive map of KNUST and Kumasi showing where students live when they are off-campus (in Ayeduase, Kotei, Boadi, Kentinkrono, etc.).
+    </p>
+    <p>
+      <strong>Why it matters:</strong> Over 60% of KNUST students live outside campus in private hostels. The university administration often has no idea where students stay off-campus. This map groups students by hostel enclave and draws a 1.8 km circular safety perimeter around KNUST campus.
+    </p>
+    <p>
+      <strong>How to explain it:</strong> <em>"Using Leaflet and OpenStreetMap, we created a GIS layer. When students register their hostel, they are automatically placed into residential clusters so security and registry staff can visualize off-campus student density."</em>
+    </p>
+  </div>
+
+  <div class="feature-card">
+    <h3>
+      <span>🚨 Feature 2: Threat Detection & "Campus Guardian" SOS</span>
+      <span class="badge badge--red">Life Safety</span>
+    </h3>
+    <p>
+      <strong>What it means in plain English:</strong> A safety system that alerts campus security and parents if a student is attacked or in fatal danger off-campus.
+    </p>
+    <p>
+      <strong>How it solves the "student being murdered" question:</strong> A computer cannot magically predict a crime, but it <em>can</em> deploy two proven safety mechanisms:
+    </p>
+    <ul style="margin: 3pt 0 4pt; padding-left: 15pt;">
+      <li><strong>1. Instant Panic SOS Beacon:</strong> With one click, the student broadcasts their exact GPS coordinates, battery percentage, and an audio distress alarm to campus security dispatch.</li>
+      <li><strong>2. The "SafeWalk" Dead-Man’s Timer (Standout Feature!):</strong> When a student walks late at night from campus to Ayeduase or Kotei, they set a 15-minute countdown. <strong>If an attacker ambushes them and they cannot check in, the timer hits 00:00 and automatically triggers a Priority-1 red alert</strong> with their last known GPS breadcrumbs!</li>
+      <li><strong>3. Coerced Duress PIN:</strong> If an attacker forces the student to cancel the timer, entering duress PIN <span class="mono">9999</span> pretends to close the app while silently alerting security dispatch!</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 3: FEATURES 3, 4, 5 ==================== -->
+  <h2>3. Features 3, 4 & 5: Results, Logins & Privacy Controls</h2>
+
+  <div class="feature-card">
+    <h3>
+      <span>📊 Feature 3: Academic Results & KNUST CWA Engine</span>
+      <span class="badge badge--gold">Official KNUST Scale</span>
+    </h3>
+    <p>
+      <strong>What it means in plain English:</strong> Direct connection between student records and their semester exam marks, automatically calculating their <strong>Cumulative Weighted Average (CWA)</strong>.
+    </p>
+    <p>
+      <strong>Why it matters:</strong> KNUST does not use American 4.0 GPA; KNUST uses <strong>CWA out of 100%</strong>. Our engine multiplies course marks by credit hours, divides by total credits, and classifies the student's degree:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>CWA Range</th>
+          <th>Official KNUST Degree Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>70.0% – 100%</strong></td>
+          <td><span class="badge badge--gold">First Class Honours</span></td>
+        </tr>
+        <tr>
+          <td><strong>60.0% – 69.9%</strong></td>
+          <td>Second Class Honours (Upper Division)</td>
+        </tr>
+        <tr>
+          <td><strong>50.0% – 59.9%</strong></td>
+          <td>Second Class Honours (Lower Division)</td>
+        </tr>
+        <tr>
+          <td><strong>40.0% – 49.9%</strong></td>
+          <td>Pass</td>
+        </tr>
+        <tr>
+          <td><strong>Below 40.0%</strong></td>
+          <td>Fail / Trail</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="feature-card">
+    <h3>
+      <span>👤 Feature 4: Role-Based Logins (Who Sees What)</span>
+      <span class="badge">Security & RBAC</span>
+    </h3>
+    <p>
+      <strong>What it means in plain English:</strong> Registry staff, security officers, and students have different views and permissions:
+    </p>
+    <ul style="margin: 2pt 0; padding-left: 15pt;">
+      <li><strong>Registry Admin:</strong> Full CRUD rights to add, edit, and manage records and course grades.</li>
+      <li><strong>Campus Security Dispatch:</strong> Can see the GIS safety map, off-campus clusters, and active SOS alarms, but <em>cannot</em> view student exam grades.</li>
+      <li><strong>Student (Ama Serwaa):</strong> Can view their own bio-data and CWA transcript, set SafeWalk timers, and toggle their privacy preferences.</li>
+    </ul>
+  </div>
+
+  <div class="feature-card">
+    <h3>
+      <span>🛡️ Feature 5: Privacy Controls (Ghana Data Protection Act 2012)</span>
+      <span class="badge">Statutory Compliance</span>
+    </h3>
+    <p>
+      <strong>What it means in plain English:</strong> Safeguards that stop the system from invading students' privacy.
+    </p>
+    <ul style="margin: 2pt 0; padding-left: 15pt;">
+      <li><strong>Stealth Geolocation Mode:</strong> The university does <em>not</em> spy on students 24/7. High-accuracy GPS is <strong>locked</strong> during normal hours and only unlocked when an active SOS or SafeWalk session is running.</li>
+      <li><strong>500m Coordinate Masking:</strong> Blurs the exact room number on general registry lookups to protect student safety.</li>
+      <li><strong>Access Audit Trail:</strong> Logs every time a staff member inspects student records, in compliance with Act 843 Section 28.</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 4: VISUAL WIREFRAMES & PICTURE FRAMES ==================== -->
+  <h2>4. Visual Wireframes & Picture Frames (For Presentation Slides)</h2>
+
+  <div class="image-container">
+    <img src="images/gis_sos_dashboard.jpg" alt="GIS & SOS Dashboard">
+    <div class="image-caption">Figure 1: Architectural Wireframe of the CampusGuard GIS Map & Real-time SOS Dispatch Queue.</div>
+  </div>
+
+  <div class="image-container">
+    <img src="images/results_portal_ui.jpg" alt="Academic Results Ledger">
+    <div class="image-caption">Figure 2: Official KNUST Academic Results Ledger with Course Breakdown, CWA Badge, and Privacy Controls.</div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 5: DATABASE SCHEMA & 2-MIN DEMO SCRIPT ==================== -->
+  <h2>5. The Database Schema Made Simple</h2>
+  <p>
+    If the judges ask about your database, here is how you explain the 5 relational tables in simple analogies:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Table Name</th>
+        <th>What It Stores (Analogy)</th>
+        <th>Key Columns</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="mono">students</span></td>
+        <td>The main identity card of the student.</td>
+        <td><span class="mono">student_id</span> (PK), name, dob, age, email, course, level</td>
+      </tr>
+      <tr>
+        <td><span class="mono">hostels</span></td>
+        <td>The map directory of living locations.</td>
+        <td>name, zone (Ayeduase/Kotei), latitude, longitude, is_off_campus</td>
+      </tr>
+      <tr>
+        <td><span class="mono">emergency_alerts</span></td>
+        <td>The police dispatch log of distress calls.</td>
+        <td>student_id, alert_type, status, latitude, longitude, notes</td>
+      </tr>
+      <tr>
+        <td><span class="mono">courses</span> & <span class="mono">academic_results</span></td>
+        <td>The report card linking courses to marks.</td>
+        <td>student_id, course_code, credit_hours, mark, grade</td>
+      </tr>
+      <tr>
+        <td><span class="mono">privacy_settings</span></td>
+        <td>The student's privacy padlock choices.</td>
+        <td>student_id, stealth_mode, mask_exact_room, consent_given</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>6. Step-by-Step Thursday Live Demo Script (2 Minutes)</h2>
+  <p>
+    Practice doing these 5 steps in your browser (<span class="mono">http://localhost:3000</span>). It takes under 2 minutes and will wow the judges:
+  </p>
+
+  <div class="demo-step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Start on "📋 Registry Ledger":</strong>
+      <p>Show the ledger table. Point out that each row includes their residential status (e.g. <em>Ayeduase Off-Campus</em>) and a <em>"📊 Results"</em> button.</p>
+    </div>
+  </div>
+
+  <div class="demo-step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Click "🗺️ Off-Campus GIS Map":</strong>
+      <p>Show the Leaflet map. Say: <em>"Here is our GIS map centered on KNUST. The green circle is the 1.8km campus boundary. Outside, blue markers show student hostel concentrations in Ayeduase (84 students), Kotei (48 students), and Boadi."</em></p>
+    </div>
+  </div>
+
+  <div class="demo-step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Click "🚨 Campus Guardian SOS" & Demonstrate SafeWalk:</strong>
+      <p>
+        Say: <em>"To address how the system detects an attack: we implemented the SafeWalk dead-man check-in timer."</em><br />
+        Click <strong>"Simulate Timeout Alert"</strong>. The audio siren beeps, and the incident dispatch card appears.<br />
+        Say: <em>"If a student is ambushed and cannot check in, the timer hits zero and instantly triggers this Priority-1 red alert with coordinates and battery telemetry sent to Security!"</em> Then click <strong>"Stand Down / Reset SOS"</strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="demo-step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <strong>Click "📊 Results & CWA Portal":</strong>
+      <p>Show Ama Serwaa's transcript with courses (CS 151, MATH 153). Point to the gold badge: <em>"Here is our real-time KNUST CWA calculator showing 78.4% — First Class Honours."</em></p>
+    </div>
+  </div>
+
+  <div class="demo-step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <strong>Click "🛡️ Privacy & Compliance":</strong>
+      <p>Show the Stealth Mode toggle and the Ghana Data Protection Act audit table. Say: <em>"We respect statutory student privacy; geolocation is locked unless an emergency is triggered."</em></p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 6: Q&A CHEAT SHEET & CHECKLIST ==================== -->
+  <h2>7. Word-for-Word Answers to Judges’ Questions</h2>
+  <p>
+    Memorize these key points. If Judge Davida or another panelist asks, smile, take a breath, and deliver these concise answers:
+  </p>
+
+  <div class="qa-box">
+    <div class="qa-question">Judge: "How does the system know when a student is off campus?"</div>
+    <div class="qa-answer">
+      <em>"We integrated an interactive GIS map using Leaflet and OpenStreetMap. KNUST has a defined 1.8-kilometer boundary. When students register their residence in off-campus hubs like Ayeduase or Kotei, the system flags their profile as 'Off-Campus' and places them in residential clusters for safety patrols."</em>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Judge: "How does it know when a student is being murdered or attacked?"</div>
+    <div class="qa-answer">
+      <em>"A computer cannot predict a crime with a sensor, but it can use proactive fail-safe systems. We built two mechanisms: first, an instant one-touch Panic SOS Beacon. Second, our standout feature: the 'SafeWalk' Dead-Man's Timer. When walking late at night along high-risk routes, the student starts a transit countdown. If they are attacked or incapacitated, they cannot check in; once the timer hits zero, the system automatically triggers a Priority-1 emergency alarm with their last known GPS coordinates."</em>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Judge: "Doesn’t tracking students violate their privacy?"</div>
+    <div class="qa-answer">
+      <em>"We designed our architecture strictly around the Ghana Data Protection Act, 2012 (Act 843). We use Stealth Geolocation Mode: student coordinates are never broadcast during peacetime. GPS tracking is unlocked exclusively during an active SOS beacon or user-initiated SafeWalk countdown."</em>
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Judge: "How do you calculate results and CWA?"</div>
+    <div class="qa-answer">
+      <em>"KNUST uses Cumulative Weighted Average (CWA) on a 100-point scale, not a 4.0 GPA. We multiply each course exam mark by its credit hours, divide by total credit hours taken, and automatically classify degree honors such as First Class for 70% and above."</em>
+    </div>
+  </div>
+
+  <h2>8. Thursday Morning Checklist</h2>
+
+  <ul class="checklist">
+    <li>Open terminal, run <span class="mono">npm start</span> and check that the server says "up and running on port 3000".</li>
+    <li>Open <span class="mono">http://localhost:3000</span> in Chrome or Edge and zoom browser to 110% (<span class="mono">Ctrl</span> and <span class="mono">+</span>) so judges can read clearly.</li>
+    <li>Click through all 5 tabs once before you present to make sure everything is cached.</li>
+    <li>Keep your volume audible so the judges hear the emergency alarm beep when you click "Simulate Timeout Alert".</li>
+    <li>Take a deep breath and smile. You built real-world solutions to their exact feedback. You are ready!</li>
+  </ul>
+
+</body>
+</html>

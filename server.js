@@ -1,16 +1,15 @@
 const express = require("express");
-
-
 const path = require("path");
 
 const app = express();
-const publicDirectoryPath = path.join(__dirname, "public");
+const port = process.env.PORT ?? 8000;
 
-app.use("/public", express.static(publicDirectoryPath));
-app.use(express.static(publicDirectoryPath));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res)=>{
-    res.sendFile(path.join(__dirname, "index.html"))
-})
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
-app.listen(8000)
+app.listen(port, () => {
+  console.log(`Student Management System running at http://localhost:${port}`);
+});
